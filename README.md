@@ -3,11 +3,10 @@
 The following file will explore the idea of risk vs. return within the context of portfolio optimization. We will be 
 constructing a portfolio of assets consisting of the sector ETF’s that represent the 10 major sectors of the S&P.
 
-The question we will be answering is: What is the optimal weighting of each Sector ETF within the portfolio of 10 ETF’s that will provide the maximum return, given some level “x” risk?
+The question we will be answering is: What is the optimal weighting of each Sector ETF within the portfolio of 10 ETF’s 
+that will provide the maximum return, at a given level of risk? How about minimum risk, given level of return? 
 
 This concept is further explained by the Efficient Frontier, whereby we are constructing the optimal portolio where each asset, in this case Sector ETF's, fall onto the curve. This means we have maximized the potential for return, while minimizing the risk/standard deviation of the portfolio. 
-
-Given some level "x" of weighted average return of the portfolio, we want to minimize the overall portfolio standard deviation/risk by choosing optimal weights for each sector ETF. 
 
 There are ten sector ETF's:
 Technology - XLK
