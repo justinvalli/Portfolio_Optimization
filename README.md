@@ -191,13 +191,17 @@ mc_df
 
 Running the code will first give us a line plot of the different ETF's price action over the period of 2016-2023. This helps quickly summarize which ETF may produce the highest/lowest returns. 
 
-> The Price Action Line Plot can be seen below. 
+The Price Action Line Plot can be seen below. 
 
 ![Line Plot of 11 Sector ETF](/photos/line_plot.png)
 
+Or use HvPlot to separate each ETF's price action.
+
+![HvPlot ETF](/photos/bokeh_plot.png)
+
 Even better, checking the daily rate of returns furthers our analysis in finding the most bullish ETFs . 
 
->  The Daily Rate of Returns can be seen below. 
+The Daily Rate of Returns can be seen below. 
 
 ![Daily Return Plot](/photos/daily_return.png)
 
@@ -225,6 +229,22 @@ The result should look something like:
 > A plot can be used to see the results visually
 
 ![Max_Sharpe](/photos/max_sharpe.png)
+
+### In Part 6, we can find the max Sharpe Ratio using another method, Scipy! 
+
+> Side Note: For more information on Scipy, please refer back to the Technology section of this README. 
+
+This will find the max sharpe ratio to find the optimal return and negative sharpe ratio. Going through each function will provide a similar outcome, but with different weights! 
+
+```python
+display_calculated_ef_with_random(mean_returns, cov_matrix, num_portfolios, risk_free_rate)
+```
+
+![Scipy Results](/photos/scipy.png)
+
+![Visual Scipy Result](/photos/scipy_visual.png)
+
+
 
 ---
 
