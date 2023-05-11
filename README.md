@@ -316,9 +316,13 @@ print(MC_summary_statistics)
 ## Contributors
 
 Novis, Alex
+
 Mbenga, Kayembe
+
 Korman, William
+
 Tadese, Sutan
+
 Justin Valli
 
 ---
