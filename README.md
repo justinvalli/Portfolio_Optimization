@@ -99,7 +99,7 @@ The easiest way to install the script and corresponding files is to download the
 
 ### Part 2: Install the script:
 
-# Install the required dependencies by running the following command:
+#### Install the required dependencies by running the following command:
 
 ```python
 import alpaca_trade_api as tradeapi
@@ -117,7 +117,7 @@ from MCForecastTools import MCSimulation
 %matplotlib inline
 ```
 
-# Since we are using an .env file, the script must set the variables for the Alpaca API and Secret Keys 
+#### Since we are using an .env file, the script must set the variables for the Alpaca API and Secret Keys 
 
 ```python
 load_dotenv()
@@ -165,16 +165,66 @@ for ticker in tickers:
     df[ticker] = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == ticker]['close'])
 ```
 
+#### Part 4: 
+
+We will need to further modify the original `portfolio_data` to run successfully in the Monte Carlo Simulation at the end. To do that now, create a new data frame, `mc_df`.
+
+```python
+df1 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[0]])
+df2 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[1]])
+df3 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[2]])
+df4 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[3]])
+df5 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[4]])
+df6 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[5]])
+df7 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[6]])
+df8 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[7]])
+df9 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[8]])
+df10 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[9]])
+df11 = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == tickers[10]])
+mc_df = pd.concat([df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11], axis = 1, keys = tickers)
+mc_df
+```
+
 ---
 
 ## Usage
 
+Running the code will first give us a line plot of the different ETF's price action over the period of 2016-2023. This helps quickly summarize which ETF may produce the highest/lowest returns. 
 
-1. Run the application by executing the following command:
+> The Price Action Line Plot can be seen below. 
 
-python project_file.ipynb
+![Line Plot of 11 Sector ETF](/photos/line_plot.png)
 
-2. The application will output what is the optimal weighting of each Sector ETF within the portfolio of 10 ETF’s that will provide the least amount of risk, given some level “x” returns
+Even better, checking the daily rate of returns furthers our analysis in finding the most bullish ETFs . 
+
+>  The Daily Rate of Returns can be seen below. 
+
+![Daily Return Plot](/photos/daily_return.png)
+
+### In Part 4 it is necessary to input the various constant values, num_portfolios and risk_free_rate. 
+
+In our example script, we inputed:
+
+```python
+# num_portfolios states how many simulations you would like to run.
+num_portfolios = 50000
+
+# risk_free_rate is the risk free rate using the 10 year treasury yield
+risk_free_rate = 0.0344
+```
+
+To display the optimal weights for each ETF 
+
+```python 
+display_simulated_ef_with_random (mean_returns, cov_matrix, num_portfolios, risk_free_rate)
+```
+The result should look something like: 
+
+![Simulated Data Output](/photos/simulated_data.png)
+
+> A plot can be used to see the results visually
+
+![Max_Sharpe](/photos/max_sharpe.png)
 
 ---
 
