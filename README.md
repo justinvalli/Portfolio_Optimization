@@ -13,17 +13,29 @@ that will provide the maximum return, at a given level of risk? How about minimu
 This concept is further explained by the Efficient Frontier, whereby we are constructing the optimal portolio where each asset, in this case Sector ETF's, fall onto the curve. This means we have maximized the potential for return, while minimizing the risk/standard deviation of the portfolio. 
 
 There are ten sector ETF's:
+
 Technology - XLK
+
 Health Care - XLV
+
 Financials - XLF
+
 Real Estate - XLRE
+
 Energy - XLE
+
 Materials - XLB
+
 Communication - XLC
+
 Consumer Discretionary - XLY
+
 Consumer Staples - XLP
+
 Financials - XLF
+
 Industrials - XLI
+
 Utilities - XLU
 
 After constructing the portfolio of Sector ETF's, we further explored different assets to see the results of how other securities integrated into a portfolio would produce.
@@ -36,7 +48,9 @@ https://alpaca.markets/stocks
 ## Folders
 
 [The Sector ETF Python Script](/Project_file.ipynb)
+
 [The Other Securities Python Script](/Portfolio_B.ipynb)
+
 [Monte Carlo Simulation Script](/MCForecastTools.py)
 
 ---
@@ -45,23 +59,7 @@ https://alpaca.markets/stocks
 
 The script uses Pyton version 3.7. Below is a list of the required installation of the following libraries and dependencies:
 
-```python
-import alpaca_trade_api as tradeapi
-import matplotlib.pyplot as plt
-import seaborn as sns
-import scipy.optimize as sco
-from dotenv import load_dotenv
-import os
-import pandas as pd
-import hvplot.pandas
-import numpy as np
-import warnings 
-warnings.filterwarnings("ignore")
-from MCForecastTools import MCSimulation
-%matplotlib inline
-```
-
-> Side Note: See below for more information on the following libraries and dependencies.
+> Please see the below links for more information on the following libraries and dependencies!
 
 [Alpaca Trade API](https://pypi.org/project/alpaca-trade-api/0.29/)
 
@@ -81,30 +79,91 @@ from MCForecastTools import MCSimulation
 
 [Numpy](https://numpy.org/)
 
-
-
-PYPORTFOLIOOPT
+[Pyportfolioopt](https://pypi.org/project/pyportfolioopt/)
 
 ---
 
 ## Installation Guide
 
-1. Clone the repository to your local machine.
+### Step 1: Download the Repo to your local computer.
 
-![1](clone_repo.png)
+The easiest way to install the script and corresponding files is to download the remote repo to your local desktop directly from Github.  
 
-2. 
+> Side Note: The below assumes you will use the command line to download the repo and have SSH keys set up. You can also manually download the file via `Add file` button.
 
+1. To clone, click on the top right button `<> Code` and then copy and paste directly into your command window. 
 
-2. Install the required dependencies by running the following command:
+![Copy Repo](/photos/installation_guide.png)
 
-# Import the required libraries and dependencies
+2. In the command line, use `git clone` and then paste the SSH link. Hit return.
 
+### Part 2: Install the script:
+
+# Install the required dependencies by running the following command:
+
+```python
 import alpaca_trade_api as tradeapi
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.optimize as sco
 from dotenv import load_dotenv
 import os
 import pandas as pd
 import hvplot.pandas
+import numpy as np
+import warnings 
+warnings.filterwarnings("ignore")
+from MCForecastTools import MCSimulation
+%matplotlib inline
+```
+
+# Since we are using an .env file, the script must set the variables for the Alpaca API and Secret Keys 
+
+```python
+load_dotenv()
+
+# Grab the Alpaca API Key
+alpaca_api_key = os.environ.get('ALPACA_API_KEY')
+alpaca_secret_key = os.environ.get('ALPACA_SECRET_KEY')
+
+# Create the Alpaca tradeapi.REST object
+alpaca = tradeapi.REST(alpaca_api_key, alpaca_secret_key, api_version = "v2")
+```
+
+```python
+# Set the tickers you want to use (we are using the 11 Sectors found in the introduction for the purposes of this example)
+
+tickers = ['SPY', 'XLK', 'GLD', 'TLT']
+
+# Set the time frame and format the current date 
+
+timeframe = '1D'
+
+# Format current date as ISO format
+start_date = pd.Timestamp("2013-05-01", tz="America/New_York").isoformat()
+end_date = pd.Timestamp("2023-05-01", tz="America/New_York").isoformat()
+```
+
+### Part 3: Get the portfolio data 
+
+```python
+# Using the Alpaca `get_bars()` function to get the currrent closing prices of the portfolio. 
+# Be sure to set the `df` property after the function ot format the response object as a DataFrame.
+
+portfolio_data = alpaca.get_bars(
+    tickers, 
+    timeframe,
+    start = start_date,
+    end = end_date).df
+```
+
+```pyton
+# Remove the all columns besides the Closing Price. Iterate through the data so that we extract and create columns to only contain closing prices for each ETF
+
+df = pd.DataFrame()
+for ticker in tickers:
+    df[ticker] = pd.DataFrame(portfolio_data[portfolio_data['symbol'] == ticker]['close'])
+```
 
 ---
 
