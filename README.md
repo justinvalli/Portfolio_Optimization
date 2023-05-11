@@ -4,8 +4,7 @@
 
 ## Portfolio_Optimization
 
-The following script will explore the idea of risk vs. return within the context of portfolio optimization. We will be 
-constructing a portfolio of assets consisting of the sector ETF’s that represent the 11 major sectors of the S&P.
+The following script will explore the idea of risk vs. return within the context of portfolio optimization. We will be constructing a portfolio of assets consisting of the sector ETF’s that represent the 11 major sectors of the S&P.
 
 The question we will be answering is: What is the optimal weighting of each Sector ETF within the portfolio of 11 ETF’s 
 that will provide the maximum return, at a given level of risk? How about minimum risk, given level of return? 
@@ -38,7 +37,11 @@ Industrials - XLI
 
 Utilities - XLU
 
-After constructing the portfolio of Sector ETF's, we further explored different assets to see the results of how other securities integrated into a portfolio would produce.
+After constructing the portfolio of Sector ETF's, we further explored different assets to see the results of how other securities integrated into a portfolio would produce. 
+
+> Note: This other Portfolio, found in script `Portfolio_B.ipynb`, runs the same script but with different assets to see the potential of what other securities can have on projected returns. What follows below is the same for this script.
+
+Lastly, once we get the optimal weights of each ETF, we can run a Monte Carlo Simulation to forecast what these results will look like in a chosen period of time. 
 
 The data is sourced from the ALPACA API to pull closing price historical data (YTD) from each sector ETF.
 https://alpaca.markets/stocks
@@ -209,10 +212,11 @@ The Daily Rate of Returns can be seen below.
 
 Next, take the weights from the maximum Sharpe Ratio Portfolio, run the number of simulations desired, and the amount of trading days you would like to forecast. An example of this is found below: 
 
-##### num_portfolios states how many simulations you would like to run.
+```python
+# num_portfolios states how many simulations you would like to run.
 num_portfolios = 50000
 
-##### risk_free_rate is the risk free rate using the 10 year treasury yield
+# risk_free_rate is the risk free rate using the 10 year treasury yield
 risk_free_rate = 0.0344
 ```
 
@@ -317,7 +321,9 @@ Korman, William
 Tadese, Sutan
 Justin Valli
 
-SOURCES:
+---
+
+## SOURCES:
 
 https://www.portfoliovisualizer.com/optimize-portfolio#analysisResults 
 
@@ -326,6 +332,7 @@ https://www.investopedia.com/terms/s/sharperatio.asp
 https://www.youtube.com/watch?v=Usxer0D-WWM (Youtube: How to make an Efficient Frontier Using Python)
 
 https://towardsdatascience.com/efficient-frontier-portfolio-optimisation-in-python-e7844051e7f
+
 ---
 
 ## License
