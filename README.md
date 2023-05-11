@@ -207,13 +207,12 @@ The Daily Rate of Returns can be seen below.
 
 ### In Part 4 it is necessary to input the various constant values, num_portfolios and risk_free_rate. 
 
-In our example script, we inputed:
+Next, take the weights from the maximum Sharpe Ratio Portfolio, run the number of simulations desired, and the amount of trading days you would like to forecast. An example of this is found below: 
 
-```python
-# num_portfolios states how many simulations you would like to run.
+##### num_portfolios states how many simulations you would like to run.
 num_portfolios = 50000
 
-# risk_free_rate is the risk free rate using the 10 year treasury yield
+##### risk_free_rate is the risk free rate using the 10 year treasury yield
 risk_free_rate = 0.0344
 ```
 
@@ -244,7 +243,69 @@ display_calculated_ef_with_random(mean_returns, cov_matrix, num_portfolios, risk
 
 ![Visual Scipy Result](/photos/scipy_visual.png)
 
+## Monte Carlo Simulation 
 
+Now that we have the optimal weights from the Efficient Frontier, we can use these weights in a Monte Carlo simulation to forecast the potential return. Note, the Monte Carlo simulation assumes a Normal Distrbution given an extended period of time.
+
+> Side Note: This can be done using the weights for the minimum volatility (for the safe investors!). That said, for the purposes of this example, only the Max Sharpe Performance will be forecasted.
+
+Using the `MCForecastTools.py` app found in the directory, we can import it into this script!
+
+> Note: We already imported `MCForecastTools.py` in the installation guide when we installed all libraries and dependencies. The import call was: 
+
+```python
+from MCForecastTools import MCSimulation
+```
+
+Set the parameters.
+
+```python 
+# Configure a Monte Carlo simulation to forecast five years cumulative returns 
+MC_max_sharpe = MCSimulation(
+    portfolio_data = mc_df,
+    weights = [0.3629, 0.1058, 0.0242, 0.0181, 0.0147, 0.0918, 0.06, 0.0092, 0.042, 0.1167, 0.1546],
+    num_simulation = 500,
+    num_trading_days = 252*5
+)
+```
+
+> Side Note: the `weights` variable is from the first Efficient Frontier model. 
+
+The `MCSimulation` allows you to run the following:
+
+> Get the cumulative returns
+```python
+MC_max_sharpe.calc_cumulative_return()
+```
+
+> Get a line plot of all simulated returns 
+
+```python 
+MC_sim_line_plot = MC_max_sharpe.plot_simulation()
+```
+
+![MC Line Plot](/photos/mc_min.png)
+
+> Get a histogram of the evenly distributed outcome
+
+```python
+even_weight_distribution_plot = MC_max_sharpe.plot_distribution()
+```
+
+![Histogram](/photos/montecarlo_histo.png)
+
+> Get summary stastics of the outcomes: 
+
+```python 
+MC_summary_statistics = MC_max_sharpe.summarize_cumulative_return()
+print(MC_summary_statistics)
+```
+
+![MC Stats](/photos/mc_stats.png)
+
+> Report the range of the potential return given "$x" and "y" years.
+
+![Return](/photos/return.png)
 
 ---
 
