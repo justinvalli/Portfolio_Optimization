@@ -1,6 +1,10 @@
-# Portfolio_Optimization
+![Efficient Frontier](/photos/efficient_frontier.png)
 
-The following file will explore the idea of risk vs. return within the context of portfolio optimization. We will be 
+# Introduction: 
+
+## Portfolio_Optimization
+
+The following script will explore the idea of risk vs. return within the context of portfolio optimization. We will be 
 constructing a portfolio of assets consisting of the sector ETF’s that represent the 11 major sectors of the S&P.
 
 The question we will be answering is: What is the optimal weighting of each Sector ETF within the portfolio of 11 ETF’s 
@@ -22,22 +26,62 @@ Financials - XLF
 Industrials - XLI
 Utilities - XLU
 
-After we constructed the portfolio of Sector ETF's, we added an additional asset class to experiment with the weightings of the portfolio. 
+After constructing the portfolio of Sector ETF's, we further explored different assets to see the results of how other securities integrated into a portfolio would produce.
 
 The data is sourced from the ALPACA API to pull closing price historical data (YTD) from each sector ETF.
 https://alpaca.markets/stocks
 
 ---
 
+## Folders
+
+[The Sector ETF Python Script](/Project_file.ipynb)
+[The Other Securities Python Script](/Portfolio_B.ipynb)
+[Monte Carlo Simulation Script](/MCForecastTools.py)
+
+---
+
 ## Technologies
 
-This applicaiton is written in Python and requires the installation of the following libraries:
+The script uses Pyton version 3.7. Below is a list of the required installation of the following libraries and dependencies:
 
+```python
 import alpaca_trade_api as tradeapi
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.optimize as sco
 from dotenv import load_dotenv
 import os
 import pandas as pd
 import hvplot.pandas
+import numpy as np
+import warnings 
+warnings.filterwarnings("ignore")
+from MCForecastTools import MCSimulation
+%matplotlib inline
+```
+
+> Side Note: See below for more information on the following libraries and dependencies.
+
+[Alpaca Trade API](https://pypi.org/project/alpaca-trade-api/0.29/)
+
+[Matplotlib](https://matplotlib.org/)
+
+[Seaborn](https://seaborn.pydata.org/)
+
+[Scipy](https://scipy.org/)
+
+[Dotenv](https://github.com/motdotla/dotenv)
+
+[OS](https://docs.python.org/3/library/os.html)
+
+[Pandas](https://pypi.org/project/pandas/)
+
+[Hvplot](https://pypi.org/project/hvplot/)
+
+[Numpy](https://numpy.org/)
+
+
 
 PYPORTFOLIOOPT
 
