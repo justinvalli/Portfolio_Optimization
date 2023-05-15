@@ -1,5 +1,3 @@
-![Efficient Frontier](/photos/efficient_frontier.png)
-
 # Introduction: 
 
 ## Portfolio_Optimization
